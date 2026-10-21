@@ -3,22 +3,45 @@
 <div class="block block-chapter">
   <p>La Kelmscott Press représente l’aboutissement de la carrière de William Morris dans le domaine des arts graphiques, où il peut réaliser d’un bout à l’autre ses aspirations et mettre en application ses principes. Le nom vient du village de Kelmscott, où il a acquis le manoir du même nom. Morris aspire à retrouver le métier des anciens typographes, la prééminence du travail manuel sur la mécanisation et l’industrialisation. Dans un laps de temps relativement court, entre 1891 et 1898 (Morris disparaît en 1896), la Kelmscott Press produit 66 livres, inspirés par les incunables des premières années de l’imprimerie. C’est ce que nous essayons de réaliser avec osuny : une publication artisanale de sites web.</p>
 </div>
-<div class="block">
-  <table>
-    <tr>
-      <th>Espace utilisé par Kelmscott</th>
-      <td><%= format_size(@used_space) %></td>
-    </tr>
-    <tr>
-      <th>Espace libre</th>
-      <td><%= format_size(@free_space) %> sur <%= format_size(@total_space) %></td>
-    </tr>
-  </table>
+
+<div class="block block-key_figures">
+  <div class="block-content">
+    <ul class="odd-items">
+      <li>
+        <div class="key-figure-text">
+          <span><strong><%= format_size(@used_space) %></strong></span>
+          Espace utilisé
+        </div>
+      </li>
+      <li>
+        <div class="key-figure-text">
+          <span><strong><%= format_size(@free_space) %></strong></span>
+          Espace libre
+        </div>
+      </li>
+      <li>
+        <div class="key-figure-text">
+          <span><strong><%= format_size(@total_space) %></strong></span>
+          Espace total
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 
-<p>Instances</p>
-<ul>
-  <% @universities.each do |university| %>
-    <li><a href="<%= university %>"><%= university %></a></li>
-  <% end %>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Instance</th>
+      <th>Sites</th>
+      <th>Espace utilisé</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @universities.each do |university| %>
+      <tr>
+        <td><a href="<%= university %>"><%= university %></a></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
