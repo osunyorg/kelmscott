@@ -32,9 +32,9 @@ module Helpers
     name.match?(/\A[\w-][\w.-]*\z/)
   end
 
-  # Somme des espaces disque enregistrés à la fin de chaque publication
-  def used_space
-    Dir[File.join(Publication::Site::STATE_PATH, '*', '*.size')].sum { |path| File.read(path).to_i }
+  # Somme des espaces disque enregistrés à la fin de chaque publication, de toutes les instances ou d'une seule
+  def used_space(university = '*')
+    Dir[File.join(Publication::Site::STATE_PATH, university, '*.size')].sum { |path| File.read(path).to_i }
   end
 
   # Espace libre et total du disque de Kelmscott, en octets

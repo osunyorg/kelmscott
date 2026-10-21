@@ -64,6 +64,12 @@ class Publication
       write_state('status', value)
     end
 
+    # Espace disque à la fin de la dernière publication, en octets (0 si jamais publié)
+    def size
+      path = state_file('size')
+      File.exist?(path) ? File.read(path).to_i : 0
+    end
+
     # Espace disque, additionné sur l'accueil
     def size=(bytes)
       write_state('size', bytes)

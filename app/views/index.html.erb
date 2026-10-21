@@ -40,7 +40,9 @@
   <tbody>
     <% @universities.each do |university| %>
       <tr>
-        <td><a href="<%= university %>"><%= university %></a></td>
+        <td><a href="/<%= university %>"><%= university %></a></td>
+        <td><%= directories_in(File.join(Publication::Site::SITES_PATH, university)).size %></td>
+        <td><%= format_size(used_space(university)) %></td>
       </tr>
     <% end %>
   </tbody>

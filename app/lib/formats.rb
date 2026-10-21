@@ -11,10 +11,10 @@ module Formats
     minutes.zero? ? "#{seconds} s" : "#{minutes} min #{seconds} s"
   end
 
-  # Base 1024, comme df -h : au Mo près en dessous de 1 Go, au dixième de Go au-delà
+  # Base 1024, comme df -h : au Mo près en dessous de 1 Go, au Go près au-delà
   def format_size(bytes)
     megabytes = bytes / 1024.0**2
     return "#{megabytes.round} Mo" if megabytes.round < 1024
-    "#{(megabytes / 1024).round(1).to_s.tr('.', ',')} Go"
+    "#{(megabytes / 1024).round} Go"
   end
 end

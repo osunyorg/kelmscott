@@ -11,9 +11,9 @@ class FormatsTest < Minitest::Test
   end
 
   def test_size_in_gigabytes
-    assert_equal '1,0 Go', Formats.format_size((1023.6 * MEGABYTE).to_i)
-    assert_equal '5,0 Go', Formats.format_size(5 * GIGABYTE)
-    assert_equal '12,4 Go', Formats.format_size((12.44 * GIGABYTE).to_i)
+    assert_equal '1 Go', Formats.format_size((1023.6 * MEGABYTE).to_i)
+    assert_equal '5 Go', Formats.format_size(5 * GIGABYTE)
+    assert_equal '12 Go', Formats.format_size((12.44 * GIGABYTE).to_i)
   end
 
   def test_duration

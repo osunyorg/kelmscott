@@ -14,6 +14,12 @@ class SiteTest < KelmscottTest
     assert_equal 'success', site.status
   end
 
+  def test_size
+    assert_equal 0, site.size
+    site.size = 1234
+    assert_equal 1234, site.size
+  end
+
   def test_append_log_only_after_start
     site.append_log('perdu')
     assert_nil site.log

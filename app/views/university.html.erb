@@ -11,6 +11,7 @@
       <tr>
         <th>Site</th>
         <th>Statut</th>
+        <th>Espace utilisé</th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +20,7 @@
         <tr>
           <td><a href="/<%= site.university %>/<%= site.name %>"><%= site.name %></a></td>
           <td><img src="/<%= site.university %>/<%= site.name %>/badge.svg" alt="Statut : <%= badge(site.status).first %>"></td>
+          <td><%= format_size(site.size) %></td>
         </tr>
       <% end %>
     </tbody>

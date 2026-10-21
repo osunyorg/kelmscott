@@ -36,13 +36,14 @@ class AppTest < KelmscottTest
 
   def test_home
     write_state('universite', 'site', 'size', 5 * 1024**3)
+    write_state('universite', 'autre', 'size', 3 * 1024**3)
+    write_state('ecole', 'site', 'size', 1024**3)
     FileUtils.mkdir_p(File.join(Publication::Site::SITES_PATH, 'universite', 'site'))
+    FileUtils.mkdir_p(File.join(Publication::Site::SITES_PATH, 'universite', 'autre'))
     get '/'
     assert last_response.ok?
-    free_space, total_space = Object.new.extend(Helpers).disk_space
-    assert_includes last_response.body, 'universite'
-    assert_match(%r{<th>Espace utilisé par Kelmscott</th>\s*<td>5,0 Go</td>}, last_response.body)
-    assert_match(%r{<th>Espace libre</th>\s*<td>#{Regexp.escape("#{Formats.format_size(free_space)} sur #{Formats.format_size(total_space)}")}</td>}, last_response.body)
+    assert_match(%r{<strong>9 Go</strong></span>\s*Espace utilisé}, last_response.body)
+    assert_match(%r{<td><a href="/universite">universite</a></td>\s*<td>2</td>\s*<td>8 Go</td>}, last_response.body)
   end
 
   def test_university
@@ -52,6 +53,14 @@ class AppTest < KelmscottTest
     assert last_response.ok?
     assert_includes last_response.body, '<a href="/universite/site">site</a>'
     assert_includes last_response.body, '<img src="/universite/site/badge.svg" alt="Statut : succès">'
+    assert_match(%r{alt="Statut : succès"></td>\s*<td>0 Mo</td>}, last_response.body)
+  end
+
+  def test_university_site_size
+    FileUtils.mkdir_p(File.join(Publication::Site::SITES_PATH, 'universite', 'site'))
+    write_state('universite', 'site', 'size', 12 * 1024**2)
+    get '/universite'
+    assert_match(%r{</td>\s*<td>12 Mo</td>}, last_response.body)
   end
 
   def test_site_logs_in_utf8_without_lang
