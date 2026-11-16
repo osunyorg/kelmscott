@@ -13,6 +13,7 @@ sandbox/    récupération, compilation et synchronisation des sites, chacune da
 sync/       synchronisation des sites compilés, seule à recevoir les secrets
 build/      dépendances du thème, installées une fois et partagées en lecture seule (update : mise à jour des versions)
 dxfl/       dxfl pour la synchronisation, installé de la même façon
+quix/       quix pour la synchronisation, installé de la même façon
 ```
 
 ## Prérequis

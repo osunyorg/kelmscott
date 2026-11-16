@@ -1,0 +1,15 @@
+#!/bin/bash
+# Synchronisation vers NoDC avec quix (https://forgejo.treto.dev/nodc/quix)
+# Le quix.toml du dépôt (redirections, en-têtes) est lu s'il existe.
+# Exécuté dans le sandbox (sandbox/sync), avec les outils de mise dans le PATH.
+#
+# Le dépôt est entièrement contrôlé par le build : rien n'y est résolu ni installé.
+# quix est installé à part par Kelmscott (quix/, root, version figée par le package-lock), sans npx,
+# qui lirait le .npmrc et le node_modules du dépôt.
+set -euo pipefail
+: "${QUIX_BUCKET:?QUIX_BUCKET manquant}"
+: "${AWS_ACCESS_KEY_ID:?AWS_ACCESS_KEY_ID manquant}"
+: "${AWS_SECRET_ACCESS_KEY:?AWS_SECRET_ACCESS_KEY manquant}"
+
+cd "$1"
+/usr/local/lib/kelmscott/quix/node_modules/.bin/quix deploy "$QUIX_BUCKET" public/ --yes

@@ -45,6 +45,13 @@ sudo rm -rf /usr/local/lib/kelmscott/dxfl
 sudo cp -a dxfl /usr/local/lib/kelmscott/dxfl
 sudo chown -R root:root /usr/local/lib/kelmscott/dxfl
 
+# quix, pour la synchronisation, à part : les builds ne le voient pas, et les synchronisations ne voient pas
+# les dépendances de build. --omit=dev : quix publie ses outils de développement dans son shrinkwrap
+(cd quix && as_service npm ci --omit=dev --ignore-scripts --no-audit --no-fund)
+sudo rm -rf /usr/local/lib/kelmscott/quix
+sudo cp -a quix /usr/local/lib/kelmscott/quix
+sudo chown -R root:root /usr/local/lib/kelmscott/quix
+
 # Outils (node, hugo) installés par mise, accessibles en lecture seule dans le sandbox
 printf 'TOOLS_DIR=%q\nTOOLS_PATH=%q\n' \
   "$SERVICE_HOME/.local/share/mise/installs" \

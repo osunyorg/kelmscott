@@ -1,0 +1,8 @@
+{
+  "name": "kelmscott-quix",
+  "private": true,
+  "description": "quixcli, pour la synchronisation vers NoDC, installé une fois et partagé en lecture seule par toutes les synchronisations",
+  "dependencies": {
+    "quixcli": "0.8.0"
+  }
+}

@@ -30,7 +30,7 @@ fail() {
 case "$command" in
   fetch) [[ "$argument" == https://* ]] || fail "URL invalide" ;;
   compile) ;;
-  sync) [[ "$argument" =~ ^(sftp|dxfl|rsync|s3)$ ]] || fail "méthode de synchronisation invalide" ;;
+  sync) [[ "$argument" =~ ^(sftp|dxfl|quix|rsync|s3)$ ]] || fail "méthode de synchronisation invalide" ;;
   *) fail "commande inconnue" ;;
 esac
 # Comme valid_name? dans l'app : pas de '/', ni de nom commençant par '.'

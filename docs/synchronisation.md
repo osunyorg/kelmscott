@@ -18,6 +18,18 @@ Variables, à récupérer dans l'onglet S3 du Guichet Deuxfleurs :
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY` (secret)
 
+## quix
+
+Envoi vers NoDC avec [quix](https://forgejo.treto.dev/nodc/quix). Le fichier `quix.toml` du dépôt (redirections, en-têtes) est pris en compte.
+
+quix est installé à part (`quix/`), en version figée avec ses dépendances, dans `/usr/local/lib/kelmscott/quix`, en lecture seule. Il est lancé par son chemin absolu : jamais avec `npx` dans le dépôt, dont le `.npmrc` et le `node_modules` sont contrôlés par le build. Pour le mettre à jour, changer sa version dans `quix/package.json`, lancer `quix/update` sur un poste de développement, puis commiter `package-lock.json`, comme pour les [dépendances de build](compilation.md#mise-à-jour-des-dépendances-de-build).
+
+Variables, à récupérer dans l'onglet S3 du Guichet Deuxfleurs :
+
+- `QUIX_BUCKET`
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY` (secret)
+
 ## rsync
 
 Copie incrémentale avec rsync sur SSH. La clé publique de l'hôte distant est acceptée à la première connexion, puis vérifiée.
