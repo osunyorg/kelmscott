@@ -8,6 +8,9 @@ sudo apt install -y build-essential curl libsodium-dev libssl-dev libyaml-dev zl
 # Synchronisation des sites (sync/) ; rclone est installé avec mise, en version figée (bin/steps/tools)
 sudo apt install -y openssh-client rsync
 
+# Outils nécessaires pour installer nginx
+sudo apt install -y gnupg2 ca-certificates lsb-release ubuntu-keyring
+
 # Install Mise
 if [ ! -x ~/.local/bin/mise ]; then
   curl -fsSL https://mise.run | sh
@@ -22,8 +25,21 @@ bin/steps/tools
 # Sinatra
 ## Build the app
 bin/steps/app
+
 ## Install Nginx reverse proxy
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+  | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+https://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
+  | sudo tee /etc/apt/sources.list.d/nginx.list
+
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+  | sudo tee /etc/apt/preferences.d/99nginx
+
+sudo apt update
 sudo apt install -y nginx
+
 if [ ! -f "/etc/nginx/sites-available/kelmscott.conf" ]; then
   sudo cp app/nginx.conf /etc/nginx/sites-available/kelmscott.conf
   sudo ln -s /etc/nginx/sites-available/kelmscott.conf /etc/nginx/sites-enabled/
